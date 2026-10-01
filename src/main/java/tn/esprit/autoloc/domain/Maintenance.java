@@ -1,30 +1,23 @@
 package tn.esprit.autoloc.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "maintenance")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Maintenance {
+@Builder
+public class Maintenance implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMaintenance;
 
-    @Column(nullable = false)
     private LocalDate dateDebut;
-
     private LocalDate dateFin;
-
-    @Column(length = 550)
     private String description;
 }
