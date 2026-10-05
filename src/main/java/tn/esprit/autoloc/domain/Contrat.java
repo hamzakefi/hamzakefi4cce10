@@ -21,4 +21,8 @@ public class Contrat implements Serializable {
     private LocalDate dateSignature;
     private BigDecimal montantTotal;
     private Boolean valide;
+
+    @OneToOne
+    @JoinColumn(name = "reservation_id", unique = true)
+    private Reservation reservation;
 }

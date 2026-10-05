@@ -33,4 +33,7 @@ public class Reservation implements Serializable {
 
     @OneToOne(mappedBy = "reservation")
     private Paiement paiement;
+
+    @OneToOne(mappedBy = "reservation")
+    private Contrat contrat;
 }
