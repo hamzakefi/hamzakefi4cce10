@@ -5,6 +5,8 @@ import lombok.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,7 +24,32 @@ public class Contrat implements Serializable {
     private BigDecimal montantTotal;
     private Boolean valide;
 
-    @OneToOne
-    @JoinColumn(name = "reservation_id", unique = true)
-    private Reservation reservation;
+    /**
+     * Côté INVERSE de la relation Contrat <-> Paiement (bidirectionnelle).
+     * mappedBy = "contrat" correspond exactement au champ dans Paiement.
+     * CascadeType.ALL : sauvegarder/modifier/supprimer le Contrat propage vers Paiement.
+     * orphanRemoval = true : retirer un Paiement de la liste supprime-le de la BDD.
+     * FetchType.LAZY : les paiements ne sont chargés que si on y accède.
+     */
+    @OneToMany(
+        mappedBy = "contrat",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        fetch = FetchType.LAZY
+    )
+    @Builder.Default
+    private List<Paiement> paiements = new ArrayList<>();
+
+    // -------------------------------------------------------
+    // Méthodes helper pour maintenir la cohérence des deux côtés
+    // -------------------------------------------------------
+    public void addPaiement(Paiement paiement) {
+        paiements.add(paiement);
+        paiement.setContrat(this);
+    }
+
+    public void removePaiement(Paiement paiement) {
+        paiements.remove(paiement);
+        paiement.setContrat(null);
+    }
 }

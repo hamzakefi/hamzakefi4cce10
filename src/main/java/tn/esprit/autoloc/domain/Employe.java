@@ -22,7 +22,13 @@ public class Employe implements Serializable {
     @Enumerated(EnumType.STRING)
     private RoleEmploye role;
 
-    @ManyToOne
+    /**
+     * Côté PROPRIÉTAIRE de la relation Agence <-> Employe.
+     * La FK agence_id est portée par la table employe.
+     * FetchType.LAZY : l'Agence n'est chargée que si on y accède.
+     * Pas de cascade.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agence_id")
     private Agence agence;
 }

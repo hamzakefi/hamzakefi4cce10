@@ -23,17 +23,31 @@ public class Reservation implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatutReservation statut; // EN_ATTENTE, CONFIRMEE, ANNULEE, TERMINEE
 
-    @ManyToOne
+    /**
+     * Côté PROPRIÉTAIRE : Reservation porte la FK client_id.
+     * FetchType.LAZY : le Client n'est chargé que si on y accède.
+     * Pas de cascade : un Client existe indépendamment de la Reservation.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToOne
+    /**
+     * Côté PROPRIÉTAIRE : Reservation porte la FK vehicule_id.
+     * FetchType.LAZY : le Vehicule n'est chargé que si on y accède.
+     * Pas de cascade : un Vehicule existe indépendamment de la Reservation.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicule_id")
     private Vehicule vehicule;
 
-    @OneToOne(mappedBy = "reservation")
-    private Paiement paiement;
-
-    @OneToOne(mappedBy = "reservation")
+    /**
+     * Côté PROPRIÉTAIRE de la relation Reservation <-> Contrat (@OneToOne).
+     * La FK contrat_id est portée par la table reservation.
+     * CascadeType.ALL : le cycle de vie du Contrat suit celui de la Reservation.
+     * FetchType.LAZY : le Contrat n'est chargé que si on y accède.
+     */
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "contrat_id", unique = true)
     private Contrat contrat;
 }

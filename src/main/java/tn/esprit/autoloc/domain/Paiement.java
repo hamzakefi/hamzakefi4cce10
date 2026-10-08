@@ -24,7 +24,12 @@ public class Paiement implements Serializable {
     @Enumerated(EnumType.STRING)
     private ModePaiement modePaiement;
 
-    @OneToOne
-    @JoinColumn(name = "reservation_id")
-    private Reservation reservation;
+    /**
+     * Côté PROPRIÉTAIRE de la relation Contrat <-> Paiement.
+     * La clé étrangère contrat_id est portée par la table paiement.
+     * FetchType.LAZY : le Contrat n'est chargé que si on y accède explicitement.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contrat_id")
+    private Contrat contrat;
 }

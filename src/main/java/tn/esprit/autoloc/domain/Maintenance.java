@@ -21,7 +21,12 @@ public class Maintenance implements Serializable {
     private LocalDate dateFin;
     private String description;
 
-    @ManyToOne
+    /**
+     * Côté PROPRIÉTAIRE de la relation Vehicule <-> Maintenance.
+     * La FK vehicule_id est portée par la table maintenance.
+     * FetchType.LAZY : le Vehicule n'est chargé que si on y accède.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicule_id")
     private Vehicule vehicule;
 }
