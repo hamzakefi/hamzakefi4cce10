@@ -8,23 +8,6 @@ import tn.esprit.autoloc.repository.VehiculeRepository;
 
 import java.util.List;
 
-/**
- * Implémentation du service Vehicule.
- *
- * <p>L'entité Vehicule possède : idVehicule, immatriculation, marque, modele,
- * prixLocationJour (Double), statut (StatutVehicule), agence, reservations, maintenances, equipements.
- * Le modèle ne possède pas de champ kilométrage.</p>
- *
- * <p>Règles métier :</p>
- * <ul>
- *   <li>create : refuse un idVehicule non nul</li>
- *   <li>create : refuse un prixLocationJour négatif</li>
- *   <li>findById : lève ResourceNotFoundException si absent</li>
- *   <li>update : copie immatriculation, marque, modele, prixLocationJour, statut, agence</li>
- *   <li>update : refuse un prixLocationJour négatif</li>
- *   <li>deleteById : vérifie l'existence avant suppression</li>
- * </ul>
- */
 @Service
 @RequiredArgsConstructor
 public class VehiculeServiceImpl implements IVehiculeService {
@@ -73,7 +56,6 @@ public class VehiculeServiceImpl implements IVehiculeService {
         existant.setPrixLocationJour(vehicule.getPrixLocationJour());
         existant.setStatut(vehicule.getStatut());
         existant.setAgence(vehicule.getAgence());
-        // Les collections reservations, maintenances et equipements sont conservées.
 
         return vehiculeRepository.save(existant);
     }

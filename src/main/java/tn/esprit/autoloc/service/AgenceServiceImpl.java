@@ -8,18 +8,6 @@ import tn.esprit.autoloc.repository.AgenceRepository;
 
 import java.util.List;
 
-/**
- * Implémentation du service Agence.
- *
- * <p>Règles métier :</p>
- * <ul>
- *   <li>create : refuse un idAgence non nul</li>
- *   <li>create : refuse un nom vide ou nul</li>
- *   <li>findById : lève ResourceNotFoundException si absent</li>
- *   <li>update : copie nom, adresse, telephone ; conserve les collections vehicules et employes</li>
- *   <li>deleteById : vérifie l'existence avant suppression</li>
- * </ul>
- */
 @Service
 @RequiredArgsConstructor
 public class AgenceServiceImpl implements IAgenceService {
@@ -62,7 +50,6 @@ public class AgenceServiceImpl implements IAgenceService {
             );
         }
 
-        // Copie des attributs scalaires uniquement ; les collections sont conservées.
         existant.setNom(agence.getNom());
         existant.setAdresse(agence.getAdresse());
         existant.setTelephone(agence.getTelephone());

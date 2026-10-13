@@ -8,22 +8,6 @@ import tn.esprit.autoloc.repository.ReservationRepository;
 
 import java.util.List;
 
-/**
- * Implémentation du service Reservation.
- *
- * <p>L'entité Reservation possède : idReservation, dateDebut, dateFin,
- * statut (StatutReservation), client, vehicule, contrat (@OneToOne).</p>
- *
- * <p>Règles métier :</p>
- * <ul>
- *   <li>create : refuse un idReservation non nul</li>
- *   <li>create : refuse une dateFin antérieure ou égale à dateDebut</li>
- *   <li>findById : lève ResourceNotFoundException si absent</li>
- *   <li>update : refuse une dateFin antérieure ou égale à dateDebut</li>
- *   <li>update : copie dateDebut, dateFin, statut, client, vehicule, contrat</li>
- *   <li>deleteById : vérifie l'existence avant suppression</li>
- * </ul>
- */
 @Service
 @RequiredArgsConstructor
 public class ReservationServiceImpl implements IReservationService {
@@ -76,10 +60,7 @@ public class ReservationServiceImpl implements IReservationService {
         reservationRepository.deleteById(id);
     }
 
-    /**
-     * Valide que la date de fin est postérieure à la date de début.
-     * Les deux dates peuvent être nulles (réservation incomplète tolérée à la création).
-     */
+    /** Refuse une dateFin nulle ou antérieure/égale à dateDebut si les deux sont renseignées. */
     private void validerDates(Reservation reservation) {
         if (reservation.getDateDebut() != null
                 && reservation.getDateFin() != null

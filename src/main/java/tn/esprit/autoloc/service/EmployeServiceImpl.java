@@ -8,21 +8,6 @@ import tn.esprit.autoloc.repository.EmployeRepository;
 
 import java.util.List;
 
-/**
- * Implémentation du service Employe.
- *
- * <p>L'entité Employe possède : idEmploye, nom, prenom, role (RoleEmploye), agence.
- * Le "poste" correspond au champ {@code role} dans le modèle JPA.</p>
- *
- * <p>Règles métier :</p>
- * <ul>
- *   <li>create : refuse un idEmploye non nul</li>
- *   <li>create : refuse un nom ou un prénom vide</li>
- *   <li>findById : lève ResourceNotFoundException si absent</li>
- *   <li>update : copie nom, prenom, role, agence ; ne modifie pas l'identifiant</li>
- *   <li>deleteById : vérifie l'existence avant suppression</li>
- * </ul>
- */
 @Service
 @RequiredArgsConstructor
 public class EmployeServiceImpl implements IEmployeService {

@@ -8,15 +8,6 @@ import tn.esprit.autoloc.repository.PaiementRepository;
 
 import java.util.List;
 
-/**
- * Implémentation du service Paiement (lecture seule).
- *
- * <p>Les paiements sont créés, modifiés ou supprimés uniquement via ContratServiceImpl,
- * grâce à la relation @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
- * définie dans l'entité Contrat.</p>
- *
- * <p>Ce service n'expose que findById et findAll pour permettre la consultation.</p>
- */
 @Service
 @RequiredArgsConstructor
 public class PaiementServiceImpl implements IPaiementService {

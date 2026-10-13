@@ -8,23 +8,7 @@ import tn.esprit.autoloc.repository.EquipementRepository;
 
 import java.util.List;
 
-/**
- * Implémentation du service Equipement.
- *
- * <p>L'entité Equipement possède : idEquipement, libelle, vehicules (Set).
- * Note : le modèle ne possède pas de champ quantité. La règle "refuser une quantité négative"
- * du TP ne peut pas s'appliquer au modèle actuel. Cette contrainte est documentée dans
- * docs/service-notes.md (section D).</p>
- *
- * <p>Règles métier appliquées :</p>
- * <ul>
- *   <li>create : refuse un idEquipement non nul</li>
- *   <li>create : refuse un libellé vide ou nul</li>
- *   <li>findById : lève ResourceNotFoundException si absent</li>
- *   <li>update : copie uniquement libelle ; la collection vehicules est gérée par Vehicule</li>
- *   <li>deleteById : vérifie l'existence avant suppression</li>
- * </ul>
- */
+// Note : l'entité Equipement ne possède pas de champ quantite dans le modèle JPA actuel.
 @Service
 @RequiredArgsConstructor
 public class EquipementServiceImpl implements IEquipementService {
@@ -68,7 +52,6 @@ public class EquipementServiceImpl implements IEquipementService {
         }
 
         existant.setLibelle(equipement.getLibelle());
-        // La collection vehicules est gérée via le côté propriétaire (Vehicule) : non écrasée ici.
 
         return equipementRepository.save(existant);
     }

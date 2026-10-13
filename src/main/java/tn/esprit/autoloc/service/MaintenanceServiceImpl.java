@@ -8,23 +8,7 @@ import tn.esprit.autoloc.repository.MaintenanceRepository;
 
 import java.util.List;
 
-/**
- * Implémentation du service Maintenance.
- *
- * <p>L'entité Maintenance possède : idMaintenance, dateDebut, dateFin, description, vehicule.
- * Note : le modèle ne possède pas de champ "cout". La règle "refuser un coût négatif" du TP
- * ne peut pas s'appliquer au modèle actuel (documenté dans docs/service-notes.md, section D).
- * La règle "date de fin antérieure à la date de début" est bien implémentée.</p>
- *
- * <p>Règles métier :</p>
- * <ul>
- *   <li>create : refuse un idMaintenance non nul</li>
- *   <li>create/update : refuse une dateFin antérieure ou égale à dateDebut</li>
- *   <li>findById : lève ResourceNotFoundException si absent</li>
- *   <li>update : copie dateDebut, dateFin, description, vehicule</li>
- *   <li>deleteById : vérifie l'existence avant suppression</li>
- * </ul>
- */
+// Note : l'entité Maintenance ne possède pas de champ cout dans le modèle JPA actuel.
 @Service
 @RequiredArgsConstructor
 public class MaintenanceServiceImpl implements IMaintenanceService {
@@ -75,10 +59,7 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
         maintenanceRepository.deleteById(id);
     }
 
-    /**
-     * Valide que la date de fin est postérieure à la date de début.
-     * Tolérant si l'une ou l'autre des dates est nulle.
-     */
+    /** Refuse une dateFin antérieure ou égale à dateDebut si les deux sont renseignées. */
     private void validerDates(Maintenance maintenance) {
         if (maintenance.getDateDebut() != null
                 && maintenance.getDateFin() != null

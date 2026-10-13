@@ -6,9 +6,7 @@ import java.util.List;
 
 /**
  * Service Paiement en lecture seule.
- *
- * <p>Les opérations d'écriture (création, modification, suppression) passent
- * par ContratServiceImpl via la relation @OneToMany avec CascadeType.ALL.</p>
+ * Les opérations d'écriture passent par ContratServiceImpl (CascadeType.ALL).
  */
 public interface IPaiementService {
 

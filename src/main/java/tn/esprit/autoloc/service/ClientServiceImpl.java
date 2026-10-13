@@ -8,20 +8,6 @@ import tn.esprit.autoloc.repository.ClientRepository;
 
 import java.util.List;
 
-/**
- * Implémentation du service Client.
- *
- * <p>L'entité Client possède : idClient, nom, prenom, email, numPermis, reservations.</p>
- *
- * <p>Règles métier :</p>
- * <ul>
- *   <li>create : refuse un idClient non nul</li>
- *   <li>create : refuse un nom ou un email vide</li>
- *   <li>findById : lève ResourceNotFoundException si absent</li>
- *   <li>update : copie nom, prenom, email, numPermis ; conserve les réservations</li>
- *   <li>deleteById : vérifie l'existence avant suppression</li>
- * </ul>
- */
 @Service
 @RequiredArgsConstructor
 public class ClientServiceImpl implements IClientService {
@@ -73,7 +59,6 @@ public class ClientServiceImpl implements IClientService {
         existant.setPrenom(client.getPrenom());
         existant.setEmail(client.getEmail());
         existant.setNumPermis(client.getNumPermis());
-        // La collection reservations est conservée (gérée via Reservation).
 
         return clientRepository.save(existant);
     }
